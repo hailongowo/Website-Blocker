@@ -1,18 +1,16 @@
 import tkinter as tk
-
+import atexit
 class Blocksite(tk.Tk):
     def __init__(self):
         super().__init__()
         self.geometry("800x450")
         self.title('Website Blocker')
-        self.is_on = False
         self.hosts_path = r"C:\\Windows\\System32\\drivers\\etc\\hosts"
         self.hosts_temp = "hosts"
         self.redirect = "127.0.0.1"
-        self.on = tk.PhotoImage(file = "img/on.png")
-        self.off = tk.PhotoImage(file = "img/off.png")
         self.blocksiteFile = open('blocksiteFile.txt', 'r+')
         self.web_sites_list = [line.replace('\n', '') for line in self.blocksiteFile]
+        self.is_on = False #Toggle is on/off
     def Label(self):
         self.header = tk.Label (self, text="Website Blocker", font="Arial 30")
         self.header.pack(pady=(70, 40))
@@ -25,6 +23,8 @@ class Blocksite(tk.Tk):
         self.url.delete(0, "end")
         return None
     def Button(self):
+        self.on = tk.PhotoImage(file = "img/on.png")
+        self.off = tk.PhotoImage(file = "img/off.png")
         self.button = tk.Button(self, text='Block!', font='Arial 15', width=30, command=self.onAddBlock)
         self.button.pack(pady=5)
         self.toggle = tk.Button(self, image = self.off, bd = 0, command = self.switch)
@@ -81,3 +81,6 @@ if __name__ == "__main__":
     Main.Button()
     Main.onOffToggle()
     Main.mainloop()
+    atexit.register(Main.onOffToggle)
+
+    

@@ -7,3 +7,4 @@ www.microsoft.com
 www.mail.google.com
 www.adu.com
 www.wtf.com
+www.docs.google.com
