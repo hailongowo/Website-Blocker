@@ -1,5 +1,1 @@
-facebook.com
-www.google.com
-www.microsoft.com
-www.mail.google.com
-www.docs.google.com
+www.gmail.com
