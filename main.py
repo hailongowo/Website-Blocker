@@ -35,6 +35,7 @@ class Blocksite(tk.Tk):
         self.toggle.pack(pady = 50)
     def onAddBlock(self): #Block button is clicked
         newSite = self.url.get()
+        print(f'{newSite} is added to the blocked list')
         blocksiteFile_add = open('blocksiteFile.txt', 'a')
         blocksiteFile_add.write(newSite + '\n')
         blocksiteFile_add.close()
@@ -89,6 +90,14 @@ class Blocksite(tk.Tk):
                 if website != name + '\n':
                     f.write(website)
             f.truncate()
+        with open(self.hosts_path, "r+") as f:
+            readLines = f.readlines()
+            f.seek(0)
+            for website in readLines:
+                if website != f"{self.redirect} {name}\n":
+                    f.write(website)
+            f.truncate()
+        
         window.destroy()
         self.openNewWindow()
 
