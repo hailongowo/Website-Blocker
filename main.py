@@ -5,16 +5,18 @@ class Blocksite(tk.Tk):
         super().__init__()
         self.geometry("800x500")
         self.title('Website Blocker')
-        self.hosts_path = r"C:\\Windows\\System32\\drivers\\etc\\hosts"
+        self.hosts_path = r"C:\\Windows\\System32\\drivers\\etc\\hosts" # File manipulated
         self.hosts_temp = "hosts"
-        self.redirect = "127.0.0.1"
+        self.redirect = "127.0.0.1" 
         self.blocksiteFile = open('blocksiteFile.txt', 'r+')
         self.web_sites_list = [line.replace('\n', '') for line in self.blocksiteFile]
         self.is_on = False #Toggle is on/off
-        self.imgDelete = tk.PhotoImage(file = "img/delete.png")
     def Label(self):
+        self.blocked = tk.PhotoImage(file = "img/blocked.png")
+        self.blockButton = tk.Button(self, image = self.blocked, command = self.openNewWindow)
+        self.blockButton.pack(side = tk.TOP, anchor = tk.NW, padx = 10, pady = 10)
         self.header = tk.Label (self, text="Website Blocker", font="Arial 30")
-        self.header.pack(pady=(70, 40))
+        self.header.pack(pady=(30, 40))
     def Entry(self):
         self.url = tk.Entry(self, font=('Arial 20'), width=35)
         self.url.insert(0, "Enter URL here...")
@@ -24,9 +26,6 @@ class Blocksite(tk.Tk):
         self.url.delete(0, "end")
         return None
     def Button(self):
-        self.blocked = tk.PhotoImage(file = "img/blocked.png")
-        self.blockButton = tk.Button(self, image = self.blocked, command = self.openNewWindow)
-        self.blockButton.pack()
         self.on = tk.PhotoImage(file = "img/on.png")
         self.off = tk.PhotoImage(file = "img/off.png")
         self.button = tk.Button(self, text='Block!', font='Arial 15', width=30, command=self.onAddBlock)
@@ -105,6 +104,7 @@ class Blocksite(tk.Tk):
         newWindow = tk.Toplevel(self)
         newWindow.title("Blocked websites")
         newWindow.geometry("500x400")
+        self.imgDelete = tk.PhotoImage(file = "img/delete.png")
         siteIndex = 0
         for wt in self.web_sites_list:
             web = tk.Label(newWindow, text = wt, font = ("Arial 20", 10))
